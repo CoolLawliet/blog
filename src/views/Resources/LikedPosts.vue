@@ -14,16 +14,16 @@
           <div class="dropdown-menu dropdown-menu-right rounded-0 g-mt-10">
 
 
-            <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 5 }}" class="dropdown-item g-px-10">
+            <router-link :to="{ path: $route.path, query: { page: 1, per_page: 5 }}" class="dropdown-item g-px-10">
               <i class="icon-layers g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 5 篇
             </router-link>
-            <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 10 }}" class="dropdown-item g-px-10">
+            <router-link :to="{ path: $route.path, query: { page: 1, per_page: 10 }}" class="dropdown-item g-px-10">
               <i class="icon-wallet g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 10 篇
             </router-link>
 
             <div class="dropdown-divider"></div>
 
-            <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 20 }}" class="dropdown-item g-px-10">
+            <router-link :to="{ path: $route.path, query: { page: 1, per_page: 20 }}" class="dropdown-item g-px-10">
               <i class="icon-fire g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 20 篇
             </router-link>
 
@@ -36,22 +36,22 @@
       <div v-if="datalist" class="card-block g-pa-0" >
 
         <div class="media g-brd-around g-brd-gray-light-v4 g-brd-left-1 g-pa-20 g-mb-20"
-          v-for="(post, index) in datalist" v-bind:key="index">
+          v-for="(post, index) in datalist" :key="index">
 
-          <router-link v-bind:to="{ path: `/user/${post.author.id}` }" v-bind:title="post.author.name || post.author.username">
+          <router-link :to="{ path: `/user/${post.author.id}` }" :title="post.author.name || post.author.username">
             <span v-if="post.is_new" class="d-inline-block g-pos-rel">
               <span class="u-badge-v2--xs u-badge--top-left g-bg-red g-mt-7 g-ml-7"></span>
-              <img class="d-flex g-brd-around g-brd-gray-light-v3 g-pa-2 g-width-40 g-height-40 rounded-circle rounded mCS_img_loaded g-mt-3 g-mr-15" v-bind:src="post.author.avatar" v-bind:alt="post.author.name || post.author.username">
+              <img class="d-flex g-brd-around g-brd-gray-light-v3 g-pa-2 g-width-40 g-height-40 rounded-circle rounded mCS_img_loaded g-mt-3 g-mr-15" :src="post.author.avatar" :alt="post.author.name || post.author.username">
             </span>
-            <img v-else class="d-flex g-brd-around g-brd-gray-light-v3 g-pa-2 g-width-40 g-height-40 rounded-circle rounded mCS_img_loaded g-mt-3 g-mr-15" v-bind:src="post.author.avatar" v-bind:alt="post.author.name || post.author.username">
+            <img v-else class="d-flex g-brd-around g-brd-gray-light-v3 g-pa-2 g-width-40 g-height-40 rounded-circle rounded mCS_img_loaded g-mt-3 g-mr-15" :src="post.author.avatar" :alt="post.author.name || post.author.username">
           </router-link>
 
           <div class="media-body">
             <div class="g-mb-15">
               <h5 class="h5 g-color-gray-dark-v1 mb-0">
                 <small class="g-font-size-12 g-color-aqua g-mr-5">你喜欢了</small>
-                <router-link v-bind:to="{ path: `/user/${post.author.id}` }" class="g-text-underline--none--hover">{{ post.author.name || post.author.username }}</router-link>
-                <span class="h6 g-color-aqua">的文章<router-link v-bind:to="{ name: 'PostDetail', params: { id: post.id } }" class="g-text-underline--none--hover">《{{ post.title }}》</router-link></span>
+                <router-link :to="{ path: `/user/${post.author.id}` }" class="g-text-underline--none--hover">{{ post.author.name || post.author.username }}</router-link>
+                <span class="h6 g-color-aqua">的文章<router-link :to="{ name: 'PostDetail', params: { id: post.id } }" class="g-text-underline--none--hover">《{{ post.title }}》</router-link></span>
               </h5>
               <span class="g-color-gray-dark-v4 g-font-size-12">{{ $moment(post.timestamp).format('YYYY年MM月DD日 HH:mm:ss') }}</span>
             </div>
@@ -72,12 +72,12 @@
                   </a>
                 </li>
                 <li class="list-inline-item g-mr-20">
-                  <router-link v-bind:to="{ path: `/post/${post.id}#like-post` }" class="g-color-gray-dark-v5 g-text-underline--none--hover">
+                  <router-link :to="{ path: `/post/${post.id}#like-post` }" class="g-color-gray-dark-v5 g-text-underline--none--hover">
                     <i class="icon-heart g-pos-rel g-top-1 g-mr-3"></i> {{ post.likers_count }}
                   </router-link>
                 </li>
                 <li class="list-inline-item g-mr-20">
-                  <router-link v-bind:to="{ path: `/post/${post.id}#comment-list-wrap` }" class="g-color-gray-dark-v5 g-text-underline--none--hover">
+                  <router-link :to="{ path: `/post/${post.id}#comment-list-wrap` }" class="g-color-gray-dark-v5 g-text-underline--none--hover">
                     <i class="icon-bubble g-pos-rel g-top-1 g-mr-3"></i> {{ post.comments_count }}
                   </router-link>
                 </li>
@@ -96,9 +96,9 @@
     <!-- Pagination #04 -->
     <div v-if="datalist">
       <pagination
-       v-bind:cur-page="page"
-        v-bind:per-page="per_page"
-        v-bind:total-pages="page_total">
+       :cur-page="page"
+        :per-page="per_page"
+        :total-pages="page_total">
       </pagination>
     </div>
     <!-- End Pagination #04 -->
@@ -107,10 +107,10 @@
 
 <script>
 import store from '../../store'
-import Post from '../Base/Post'
+import Post from '../../components/Post'
 // 导入 vue-markdown 组件解析 markdown 原文为　HTML
 import VueMarkdown from 'vue-markdown'
-import Pagination from '../Base/Pagination'
+import Pagination from '../../components/Pagination'
 export default {
   name: 'Posts',  // this is the name of the component
   components: {

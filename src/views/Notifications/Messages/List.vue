@@ -13,19 +13,19 @@
           </span>
           <div class="dropdown-menu dropdown-menu-right rounded-0 g-mt-10">
 
-            <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 1 }}" class="dropdown-item g-px-10">
+            <router-link :to="{ path: $route.path, query: { page: 1, per_page: 1 }}" class="dropdown-item g-px-10">
               <i class="icon-plus g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 1 条
             </router-link>
-            <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 5 }}" class="dropdown-item g-px-10">
+            <router-link :to="{ path: $route.path, query: { page: 1, per_page: 5 }}" class="dropdown-item g-px-10">
               <i class="icon-layers g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 5 条
             </router-link>
-            <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 10 }}" class="dropdown-item g-px-10">
+            <router-link :to="{ path: $route.path, query: { page: 1, per_page: 10 }}" class="dropdown-item g-px-10">
               <i class="icon-wallet g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 10 条
             </router-link>
 
             <div class="dropdown-divider"></div>
 
-            <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 20 }}" class="dropdown-item g-px-10">
+            <router-link :to="{ path: $route.path, query: { page: 1, per_page: 20 }}" class="dropdown-item g-px-10">
               <i class="icon-fire g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 20 条
             </router-link>
 
@@ -36,19 +36,19 @@
 
       <!-- Panel Body -->
       <div class="d-flex justify-content-start g-brd-around g-brd-gray-light-v4 g-brd-left-1 g-pa-20 g-mb-10"
-        v-for="(message, index) in messages_list" v-bind:key="index">
+        v-for="(message, index) in messages_list" :key="index">
         <div class="g-mt-2">
-          <router-link v-bind:to="{ path: `/user/${message.sender.id}` }">
+          <router-link :to="{ path: `/user/${message.sender.id}` }">
             <span v-if="message.is_new" class="d-inline-block g-pos-rel">
               <span class="u-badge-v2--xs u-badge--top-left g-bg-red g-mt-7 g-ml-7"></span>
-              <img class="g-brd-around g-brd-gray-light-v4 g-pa-2 g-width-50 g-height-50 rounded-circle" v-bind:src="message.sender.avatar" v-bind:alt="message.sender.name || message.sender.username">
+              <img class="g-brd-around g-brd-gray-light-v4 g-pa-2 g-width-50 g-height-50 rounded-circle" :src="message.sender.avatar" :alt="message.sender.name || message.sender.username">
             </span>
-            <img v-else class="g-brd-around g-brd-gray-light-v4 g-pa-2 g-width-50 g-height-50 rounded-circle" v-bind:src="message.sender.avatar" v-bind:alt="message.sender.name || message.sender.username">
+            <img v-else class="g-brd-around g-brd-gray-light-v4 g-pa-2 g-width-50 g-height-50 rounded-circle" :src="message.sender.avatar" :alt="message.sender.name || message.sender.username">
           </router-link>
         </div>
         <div class="align-self-center g-px-10">
           <h5 class="h5 g-color-gray-dark-v1 mb-0">
-            <router-link v-bind:to="{ path: `/user/${message.sender.id}` }" class="g-text-underline--none--hover">
+            <router-link :to="{ path: `/user/${message.sender.id}` }" class="g-text-underline--none--hover">
               <span class="g-mr-5">{{ message.sender.name || message.sender.username }}</span>
             </router-link>
             <small class="g-font-size-12 g-color-aqua">给你发送了<small v-if="message.new_count" class="g-font-size-12 g-color-deeporange"> {{ message.new_count }} 条新 </small>私信</small>
@@ -57,14 +57,14 @@
         </div>
          <ul class="list-inline mb-0 align-self-center ml-auto">
           <li v-if="!message.is_blocking" class="list-inline-item g-mr-5">
-            <button v-on:click="onBlock(message.sender.id)" class="btn btn-block u-btn-outline-red g-rounded-20 g-px-10">拉黑</button>
+            <button @click="onBlock(message.sender.id)" class="btn btn-block u-btn-outline-red g-rounded-20 g-px-10">拉黑</button>
           </li>
           <li v-else class="list-inline-item g-mr-5">
-            <button v-on:click="onUnblock(message.sender.id)" class="btn btn-block u-btn-outline-aqua g-rounded-20 g-px-10">取消拉黑</button>
+            <button @click="onUnblock(message.sender.id)" class="btn btn-block u-btn-outline-aqua g-rounded-20 g-px-10">取消拉黑</button>
           </li>
 
           <li class="list-inline-item">
-            <router-link v-bind:to="{ name: 'MessagesHistory', query: { from: message.sender.id } }">
+            <router-link :to="{ name: 'MessagesHistory', query: { from: message.sender.id } }">
               <button class="btn btn-block u-btn-outline-primary g-rounded-20 g-px-10">聊天记录</button>
             </router-link>
           </li>
@@ -77,9 +77,9 @@
     <!-- Pagination #04 -->
     <div v-if="messages">
       <pagination
-        v-bind:cur-page="page"
-        v-bind:per-page="per_page"
-        v-bind:total-pages="page_total">
+        :cur-page="page"
+        :per-page="per_page"
+        :total-pages="page_total">
       </pagination>
     </div>
     <!-- End Pagination #04 -->
@@ -89,7 +89,7 @@
 
 <script>
 import store from '../../../store'
-import Pagination from '../../Base/Pagination'
+import Pagination from '../../../components/Pagination'
 
 export default {
   name: 'List',  // this is the name of the component

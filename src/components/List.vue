@@ -1,117 +1,31 @@
-<!-- 首页 -->
 <template>
-    <div>
-        <!--        <wbc-nav></wbc-nav>-->
-        <div class="container">
-            <el-row :gutter="30">
-                <el-col :sm="24" :md="16" style="transition:all .5s ease-out;margin-bottom:30px;">
-                    <!--                    <wbc-sharelist></wbc-sharelist>-->
-                    <div class="container">
+    <div class="container">
 
-                        <!-- Modal: Edit Post -->
-                        <div class="modal fade" id="editPostModal" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editPostModalTitle">Update Post</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-
-                                        <form id="editPostForm" @submit.prevent="onSubmitUpdatePost"
-                                              @reset.prevent="onResetUpdatePost">
-                                            <div class="form-group"
-                                                 :class="{'u-has-error-v1': editPostForm.titleError}">
-                                                <input type="text" v-model="editPostForm.title" class="form-control"
-                                                       id="editPostFormTitle" placeholder="标题">
-                                                <small class="form-control-feedback" v-show="editPostForm.titleError">{{
-                                                    editPostForm.titleError }}
-                                                </small>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" v-model="editPostForm.summary" class="form-control"
-                                                       id="editPostFormSummary" placeholder="摘要">
-                                                <small class="form-control-feedback" v-show="postForm.summaryError">{{
-                                                    editPostForm.summaryError }}
-                                                </small>
-
-                                            </div>
-
-
-                                            <div class="form-group">
-
-                                                <el-select v-model="editPostForm.category">
-
-                                                    <el-option v-for="(item,index) in classListObj"
-                                                               :label="item.name"
-                                                               :key="item.name"
-                                                               :value="item.id"
-                                                    >
-                                                    </el-option>
-
-                                                </el-select>
-
-                                                <small class="form-control-feedback"
-                                                       v-show="editPostForm.categoryError">{{ editPostForm.categoryError
-                                                    }}
-                                                </small>
-
-                                            </div>
-
-
-                                            <div class="form-group">
-
-                                                <el-upload
-                                                        :action="imgUrl"
-
-                                                        ref='upload'
-                                                        :on-success="imgSuccess"
-                                                        :limit="1"
-                                                        list-type="picture-card"
-
-                                                >
-                                                    <i class="el-icon-plus"></i>
-                                                </el-upload>
-                                                <el-dialog :visible.sync="dialogVisible">
-                                                    <img width="100%" :src="dialogImageUrl" alt="">
-                                                </el-dialog>
-
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <textarea v-model="editPostForm.body" class="form-control"
-                                                          id="editPostFormBody" rows="5" placeholder=" 内容"></textarea>
-                                                <small class="form-control-feedback" v-show="editPostForm.bodyError">{{
-                                                    editPostForm.bodyError }}
-                                                </small>
-                                            </div>
-                                            <button type="reset" class="btn btn-secondary">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">Update</button>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <form id="addPostForm" v-if="sharedState.is_authenticated && sharedState.user_perms=='true'"
-                              @submit.prevent="onSubmitAddPost" class="g-mb-40">
-                            <div class="form-group" :class="{'u-has-error-v1': postForm.titleError}">
-                                <input type="text" v-model="postForm.title" class="form-control" id="postFormTitle"
-                                       placeholder="标题">
-                                <small class="form-control-feedback" v-show="postForm.titleError">{{ postForm.titleError
-                                    }}
+        <!-- Modal: Edit Post -->
+        <div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editPostModalTitle">Update Post</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editPostForm" @submit.prevent="onSubmitUpdatePost" @reset.prevent="onResetUpdatePost">
+                            <div class="form-group" :class="{'u-has-error-v1': editPostForm.titleError}">
+                                <input type="text" v-model="editPostForm.title" class="form-control"
+                                       id="editPostFormTitle" placeholder="标题">
+                                <small class="form-control-feedback" v-show="editPostForm.titleError">{{
+                                    editPostForm.titleError }}
                                 </small>
                             </div>
                             <div class="form-group">
-                                <input type="text" v-model="postForm.summary" class="form-control" id="postFormSummary"
-                                       placeholder="摘要">
+                                <input type="text" v-model="editPostForm.summary" class="form-control"
+                                       id="editPostFormSummary" placeholder="摘要">
                                 <small class="form-control-feedback" v-show="postForm.summaryError">{{
-                                    postForm.summaryError }}
+                                    editPostForm.summaryError }}
                                 </small>
 
                             </div>
@@ -119,7 +33,8 @@
 
                             <div class="form-group">
 
-                                <el-select v-model="postForm.category">
+                                <el-select v-model="editPostForm.category">
+
                                     <el-option v-for="(item,index) in classListObj"
                                                :label="item.name"
                                                :key="item.name"
@@ -129,16 +44,17 @@
 
                                 </el-select>
 
-                                <small class="form-control-feedback" v-show="postForm.categoryError">{{
-                                    postForm.categoryError }}
+                                <small class="form-control-feedback" v-show="editPostForm.categoryError">{{
+                                    editPostForm.categoryError }}
                                 </small>
 
                             </div>
+
+
                             <div class="form-group">
 
                                 <el-upload
                                         :action="imgUrl"
-
                                         ref='upload'
                                         :on-success="imgSuccess"
                                         :limit="1"
@@ -153,115 +69,162 @@
 
                             </div>
 
+
                             <div class="form-group">
-                                <textarea v-model="postForm.body" class="form-control" id="postFormBody" rows="5"
-                                          placeholder=" 内容"></textarea>
-                                <small class="form-control-feedback" v-show="postForm.bodyError">{{ postForm.bodyError
-                                    }}
+                                <textarea v-model="editPostForm.body" class="form-control" id="editPostFormBody"
+                                          rows="5" placeholder=" 内容"></textarea>
+                                <small class="form-control-feedback" v-show="editPostForm.bodyError">{{
+                                    editPostForm.bodyError }}
                                 </small>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="btn btn-secondary">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </form>
 
-                        <div class="card border-0 g-mb-15">
-                            <!-- Panel Header -->
-                            <div class="card-header d-flex align-items-center justify-content-between g-bg-gray-light-v5 border-0 g-mb-15">
-                                <h3 class="h6 mb-0">
-                                    <i class="icon-bubbles g-pos-rel g-top-1 g-mr-5"></i> All Posts
-                                    <small v-if="datalist">(共 {{ count }} 篇, {{page_total}}页)</small>
-                                </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                                <div class="dropdown g-mb-10 g-mb-0--md">
+        <form id="addPostForm" v-if="sharedState.is_authenticated && sharedState.user_perms=='true'"
+              @submit.prevent="onSubmitAddPost" class="g-mb-40">
+            <div class="form-group" :class="{'u-has-error-v1': postForm.titleError}">
+                <input type="text" v-model="postForm.title" class="form-control" id="postFormTitle" placeholder="标题">
+                <small class="form-control-feedback" v-show="postForm.titleError">{{ postForm.titleError }}</small>
+            </div>
+            <div class="form-group">
+                <input type="text" v-model="postForm.summary" class="form-control" id="postFormSummary"
+                       placeholder="摘要">
+                <small class="form-control-feedback" v-show="postForm.summaryError">{{ postForm.summaryError }}</small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <el-select v-model="postForm.category">
+                    <el-option v-for="(item,index) in classListObj"
+                               :label="item.name"
+                               :key="item.name"
+                               :value="item.id"
+                    >
+                    </el-option>
+
+                </el-select>
+
+                <small class="form-control-feedback" v-show="postForm.categoryError">{{ postForm.categoryError }}
+                </small>
+
+            </div>
+            <div class="form-group">
+
+                <el-upload
+                        :action="imgUrl"
+                        ref='upload'
+                        :on-success="imgSuccess"
+                        :limit="1"
+                        list-type="picture-card"
+
+                >
+                    <i class="el-icon-plus"></i>
+                </el-upload>
+                <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+
+            </div>
+
+            <div class="form-group">
+                <textarea v-model="postForm.body" class="form-control" id="postFormBody" rows="5"
+                          placeholder=" 内容"></textarea>
+                <small class="form-control-feedback" v-show="postForm.bodyError">{{ postForm.bodyError }}</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <div class="card border-0 g-mb-15">
+            <!-- Panel Header -->
+            <div class="card-header d-flex align-items-center justify-content-between g-bg-gray-light-v5 border-0 g-mb-15">
+                <h3 class="h6 mb-0">
+                    <i class="icon-bubbles g-pos-rel g-top-1 g-mr-5"></i> All Posts
+                    <small v-if="datalist">(共 {{ count }} 篇, {{page_total}}页)</small>
+                </h3>
+
+                <div class="dropdown g-mb-10 g-mb-0--md">
           <span class="d-block g-color-primary--hover g-cursor-pointer g-mr-minus-5 g-pa-5" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
             <i class="icon-options-vertical g-pos-rel g-top-1"></i>
           </span>
-                                    <div class="dropdown-menu dropdown-menu-right rounded-0 g-mt-10">
+                    <div class="dropdown-menu dropdown-menu-right rounded-0 g-mt-10">
 
-                                        <router-link :to="{ path: $route.path, query: { page: 1, per_page: 5 }}"
-                                                     class="dropdown-item g-px-10">
-                                            <i class="icon-layers g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 5
-                                            篇
-                                        </router-link>
-                                        <router-link :to="{ path: $route.path, query: { page: 1, per_page: 10 }}"
-                                                     class="dropdown-item g-px-10">
-                                            <i class="icon-wallet g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 10
-                                            篇
-                                        </router-link>
+                        <router-link :to="{ path: $route.path, query: { page: 1, per_page: 5 }}"
+                                     class="dropdown-item g-px-10">
+                            <i class="icon-layers g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 5 篇
+                        </router-link>
+                        <router-link :to="{ path: $route.path, query: { page: 1, per_page: 10 }}"
+                                     class="dropdown-item g-px-10">
+                            <i class="icon-wallet g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 10 篇
+                        </router-link>
 
-                                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-divider"></div>
 
-                                        <router-link :to="{ path: $route.path, query: { page: 1, per_page: 20 }}"
-                                                     class="dropdown-item g-px-10">
-                                            <i class="icon-fire g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 20 篇
-                                        </router-link>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Panel Header -->
-
-                            <!-- Panel Body -->
-
-                            <div v-if="datalist" class="card-block g-pa-0">
-
-                                <HomePost v-for="(post, index) in datalist" :key="index"
-                                          :post="post"
-                                          :catclass="classListObj"
-                                          @edit-post="onEditPost(post)"
-                                          @delete-post="onDeletePost(post)">
-                                </HomePost>
-
-                            </div>
-
-
-                            <!-- End Panel Body -->
-                        </div>
-
-                        <!-- Pagination #04 -->
-                        <div v-if="datalist && count > 1">
-                            <pagination
-                                    :cur-page="page"
-                                    :per-page="per_page"
-
-                                    :total-pages="page_total">
-                            </pagination>
-                        </div>
-                        <!-- End Pagination #04 -->
-
+                        <router-link :to="{ path: $route.path, query: { page: 1, per_page: 20 }}"
+                                     class="dropdown-item g-px-10">
+                            <i class="icon-fire g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 20 篇
+                        </router-link>
 
                     </div>
-                </el-col>
-                <el-col :sm="24" :md="8">
-                    <wbc-rightlist></wbc-rightlist>
-                </el-col>
-            </el-row>
+                </div>
+            </div>
+            <!-- End Panel Header -->
+
+            <!-- Panel Body -->
+
+            <div v-if="datalist" class="card-block g-pa-0">
+
+                <HomePost v-for="(post, index) in datalist" :key="index"
+                          :post="post"
+                          :catclass="classListObj"
+                          @edit-post="onEditPost(post)"
+                          @delete-post="onDeletePost(post)">
+                </HomePost>
+
+            </div>
+
+
+            <!-- End Panel Body -->
         </div>
-        <wbc-footer></wbc-footer>
+
+        <!-- Pagination #04 -->
+        <div v-if="datalist && count > 1">
+            <pagination
+                    :cur-page="page"
+                    :per-page="per_page"
+                    :total-pages="page_total">
+            </pagination>
+        </div>
+        <!-- End Pagination #04 -->
     </div>
 </template>
 
 
 <script>
-
     import store from '../store'
-    import HomePost from '../components/HomePost'
-    import Pagination from '../components/Pagination'
+    import HomePost from './HomePost'
+    import Pagination from './PaginationHome'
     // bootstrap-markdown 编辑器依赖的 JS 文件，初始化编辑器在组件的 created() 方法中，同时它需要 JQuery 支持哦
 
     import '../assets/bootstrap-markdown/js/bootstrap-markdown.js'
     import '../assets/bootstrap-markdown/js/bootstrap-markdown.zh.js'
     import '../assets/bootstrap-markdown/js/marked.js'
 
-    import header from '../components/Header.vue'
-    import footer from '../components/Footer.vue'
-    import temSharelist from '../components/List.vue'
-    import temRightlist from '../components/TemRightList.vue'
 
     export default {
-        name: 'Home',
-
-
+        name: "Share", //this is the name of the component
+        components: {
+            HomePost,
+            Pagination
+        },
         data() {
             return {
                 imgUrl: "http://localhost:8000/api/upload_file/",
@@ -302,29 +265,40 @@
                 }
             }
         },
+
+
         methods: {
+
             imgSuccess(response, file, fileList) {
                 this.imageSuccessUrl = response.url
 
                 console.log(response.url)
             },
+
+
             ArtClassData() {
+
+
                 const path = '/api/posts/classList/'
                 this.$axios.get(path)
                     .then((response) => {
                         // handle success
                         this.classListObj = response.data.data
+
                     })
                     .catch((error) => {
                         // handle error
                         console.log(error.response.data)
+
                         // this.$toasted.error(error.response.data.message, { icon: 'fingerprint' })
                     })
             },
             getPosts() {
+
                 if (typeof this.$route.query.page != 'undefined') {
                     this.page = this.$route.query.page
                 }
+
                 if (typeof this.$route.query.per_page != 'undefined') {
                     this.per_page = this.$route.query.per_page
                 }
@@ -341,48 +315,60 @@
                     .catch((error) => {
                         // handle error
                         console.log(error.response.data)
+
                         // this.$toasted.error(error.response.data.message, { icon: 'fingerprint' })
                     })
             },
             onSubmitAddPost(e) {
                 this.postForm.errors = 0  // 重置
+
                 if (!this.postForm.title) {
                     this.postForm.errors++
                     this.postForm.titleError = 'Title is required.'
                 } else {
                     this.postForm.titleError = null
                 }
+
+
                 if (!this.postForm.summary) {
                     this.postForm.errors++
                     this.postForm.summaryError = 'Summary is required.'
                 } else {
                     this.postForm.summaryError = null
                 }
+
                 if (!this.postForm.category) {
                     this.postForm.errors++
                     this.postForm.categoryError = 'Category is required.'
                 } else {
                     this.postForm.categoryError = null
                 }
+
                 if (!this.imageSuccessUrl) {
                     this.postForm.errors++
                 }
+
                 if (!this.postForm.body) {
                     this.postForm.errors++
                     this.postForm.bodyError = 'Body is required.'
                     // 给 bootstrap-markdown 编辑器内容添加警示样式，而不是添加到 #post_page_totalbody 上
                     // $('.md-editor').closest('.form-group').addClass('u-has-error-v1')  // Bootstrap 4
+
+
                     // 给 bootstrap-markdown 编辑器内容添加警示样式，而不是添加到 #postFormBody 上
                     $('#addPostForm .md-editor').closest('.form-group').addClass('u-has-error-v1')  // Bootstrap 4
+
                 } else {
                     this.postForm.bodyError = null
                     // $('.md-editor').closest('.form-group').removeClass('u-has-error-v1')
                     $('#addPostForm .md-editor').closest('.form-group').removeClass('u-has-error-v1')
                 }
+
                 if (this.postForm.errors > 0) {
                     // 表单验证没通过时，不继续往下执行，即不会通过 axios 调用后端API
                     return false
                 }
+
                 const path = '/api/posts/'
                 const payload = {
                     title: this.postForm.title,
@@ -448,21 +434,25 @@
                     // this.editForm.titleError = null
                     this.editPostForm.titleError = null
                 }
+
                 if (!this.imageSuccessUrl) {
                     this.editPostForm.errors++
                 }
+
                 if (!this.editPostForm.summary) {
                     this.editPostForm.errors++
                     this.editPostForm.summaryError = 'Summary is required.'
                 } else {
                     this.editPostForm.summaryError = null
                 }
+
                 if (!this.editPostForm.category) {
                     this.editPostForm.errors++
                     this.editPostForm.categoryError = 'Category is required.'
                 } else {
                     this.editPostForm.categoryError = null
                 }
+
                 if (!this.editPostForm.body) {
                     this.editPostForm.errors++
                     this.editPostForm.bodyError = '内容不能为空.'
@@ -484,6 +474,8 @@
 
                 // 先隐藏 Modal
                 $('#editPostModal').modal('hide')
+
+
                 const path = `/api/posts/${this.editPostForm.id}/`
                 const payload = {
                     title: this.editPostForm.title,
@@ -548,18 +540,9 @@
                 })
             }
         },
-        components: { //定义组件
-            'wbc-nav': header,
-            'wbc-sharelist': temSharelist,
-            'wbc-rightlist': temRightlist,
-            'wbc-footer': footer,
-            HomePost,
-            Pagination
-
-        },
         created() {
-            this.ArtClassData();
-            this.getPosts();
+            this.ArtClassData()
+            this.getPosts()
             // 初始化 bootstrap-markdown 插件
             $(document).ready(function () {
                 $("#postFormBody, #editPostFormBody").markdown({
@@ -570,16 +553,12 @@
                 })
             })
         },
-
+        // 当查询参数 page 或 per_page 变化后重新加载数据
         beforeRouteUpdate(to, from, next) {
             // 注意：要先执行 next() 不然 this.$route.query 还是之前的
-            next();
-            this.ArtClassData();
+            next()
+            this.ArtClassData()
             this.getPosts()
         }
     }
 </script>
-
-<style>
-
-</style>

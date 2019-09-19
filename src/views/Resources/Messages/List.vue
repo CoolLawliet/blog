@@ -13,16 +13,16 @@
           </span>
           <div class="dropdown-menu dropdown-menu-right rounded-0 g-mt-10">
 
-           <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 5 }}" class="dropdown-item g-px-10">
+           <router-link :to="{ path: $route.path, query: { page: 1, per_page: 5 }}" class="dropdown-item g-px-10">
                   <i class="icon-layers g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 5 条顶层评论
                 </router-link>
-                <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 10 }}" class="dropdown-item g-px-10">
+                <router-link :to="{ path: $route.path, query: { page: 1, per_page: 10 }}" class="dropdown-item g-px-10">
                   <i class="icon-wallet g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 10 条顶层评论
                 </router-link>
 
                 <div class="dropdown-divider"></div>
 
-                <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 20 }}" class="dropdown-item g-px-10">
+                <router-link :to="{ path: $route.path, query: { page: 1, per_page: 20 }}" class="dropdown-item g-px-10">
                   <i class="icon-fire g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 20 条顶层评论
                 </router-link>
 
@@ -33,20 +33,20 @@
 
       <!-- Panel Body -->
       <div class="d-flex justify-content-start g-brd-around g-brd-gray-light-v4 g-brd-left-1 g-pa-20 g-mb-10"
-        v-for="(message, index) in messages_list" v-bind:key="index">
+        v-for="(message, index) in messages_list" :key="index">
         <div class="g-mt-2">
-          <router-link v-bind:to="{ path: `/user/${message.recipient.id}` }">
+          <router-link :to="{ path: `/user/${message.recipient.id}` }">
             <span v-if="message.is_new" class="d-inline-block g-pos-rel">
               <span class="u-badge-v2--xs u-badge--top-left g-bg-red g-mt-7 g-ml-7"></span>
-              <img class="g-brd-around g-brd-gray-light-v4 g-pa-2 g-width-50 g-height-50 rounded-circle" v-bind:src="message.recipient.avatar" v-bind:alt="message.recipient.name || message.recipient.username">
+              <img class="g-brd-around g-brd-gray-light-v4 g-pa-2 g-width-50 g-height-50 rounded-circle" :src="message.recipient.avatar" :alt="message.recipient.name || message.recipient.username">
             </span>
-            <img v-else class="g-brd-around g-brd-gray-light-v4 g-pa-2 g-width-50 g-height-50 rounded-circle" v-bind:src="message.recipient.avatar" v-bind:alt="message.recipient.name || message.recipient.username">
+            <img v-else class="g-brd-around g-brd-gray-light-v4 g-pa-2 g-width-50 g-height-50 rounded-circle" :src="message.recipient.avatar" :alt="message.recipient.name || message.recipient.username">
           </router-link>
         </div>
         <div class="align-self-center g-px-10">
           <h5 class="h5 g-color-gray-dark-v1 mb-0">
             <small class="g-font-size-12 g-color-aqua g-mr-5">你给</small>
-            <router-link v-bind:to="{ path: `/user/${message.recipient.id}` }" class="g-text-underline--none--hover">
+            <router-link :to="{ path: `/user/${message.recipient.id}` }" class="g-text-underline--none--hover">
               <span class="g-mr-5">{{ message.recipient.name || message.recipient.username }}</span>
             </router-link>
             <small class="g-font-size-12 g-color-aqua g-mr-5">发送了 {{ message.total_count }} 条私信, </small> <small v-if="message.new_count" class="g-font-size-12 g-color-deeporange"> {{ message.new_count }}条未读</small>
@@ -54,7 +54,7 @@
           <p class="m-0">{{ $moment(message.timestamp).format('YYYY年MM月DD日 HH:mm:ss') }}</p>
         </div>
         <div class="align-self-center ml-auto">
-          <router-link v-bind:to="{ name: 'MessagesHistoryResource', query: { from: message.recipient.id } }">
+          <router-link :to="{ name: 'MessagesHistoryResource', query: { from: message.recipient.id } }">
             <button class="btn btn-block u-btn-outline-primary g-rounded-20 g-px-10">聊天记录</button>
           </router-link>
         </div>
@@ -65,9 +65,9 @@
     <!-- Pagination #04 -->
     <div v-if="messages">
       <pagination
-        v-bind:cur-page="page"
-        v-bind:per-page="per_page"
-        v-bind:total-pages="page_total">
+        :cur-page="page"
+        :per-page="per_page"
+        :total-pages="page_total">
       </pagination>
     </div>
     <!-- End Pagination #04 -->
@@ -76,7 +76,7 @@
 
 <script>
 import store from '../../../store'
-import Pagination from '../../Base/Pagination'
+import Pagination from '../../../components/Pagination'
 
 export default {
   name: 'MessagesResource',  // this is the name of the component

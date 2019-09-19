@@ -5,7 +5,7 @@
     <!-- Panel Header -->
     <div class="card-header d-flex align-items-center justify-content-between g-bg-gray-light-v5 border-0 g-mb-15">
       <h3 class="h6 mb-0">
-        <i class="icon-bubbles g-pos-rel g-top-1 g-mr-5"></i> 与 <router-link v-bind:to="{ path: `/user/${user.id}` }" class="g-text-underline--none--hover">{{ user.name || user.username }}</router-link> 的对话 <small v-if="messages">(共 {{ count }} 条, {{page_total }} 页)</small>
+        <i class="icon-bubbles g-pos-rel g-top-1 g-mr-5"></i> 与 <router-link :to="{ path: `/user/${user.id}` }" class="g-text-underline--none--hover">{{ user.name || user.username }}</router-link> 的对话 <small v-if="messages">(共 {{ count }} 条, {{page_total }} 页)</small>
       </h3>
       <div class="dropdown g-mb-10 g-mb-0--md">
         <span class="d-block g-color-primary--hover g-cursor-pointer g-mr-minus-5 g-pa-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -13,7 +13,7 @@
         </span>
         <div class="dropdown-menu dropdown-menu-right rounded-0 g-mt-10">
 
-          <router-link v-bind:to="{ name: 'MessagesIndexResource' }" class="dropdown-item g-px-10">
+          <router-link :to="{ name: 'MessagesIndexResource' }" class="dropdown-item g-px-10">
             <i class="icon-plus g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 返回已发私信列表
           </router-link>
 
@@ -29,17 +29,17 @@
     <div class="card-block g-pa-0" >
       <!-- Chat. Message Area. Messages. -->
       <div class="g-brd-around g-brd-gray-light-v4 g-pa-20">
-        <div v-for="(message, index) in messages_list" v-bind:key="index">
+        <div v-for="(message, index) in messages_list" :key="index">
           <!-- Chat. Message Area. Message (From). -->
           <section v-if="message.sender.id != sharedState.user_id" class="g-mb-30">
             <div class="media g-mb-12">
               <!-- Chat. Message Area. Message. Avatar. -->
-              <router-link v-bind:to="{ path: `/user/${message.sender.id}` }" class="d-flex align-self-end g-mr-12">
+              <router-link :to="{ path: `/user/${message.sender.id}` }" class="d-flex align-self-end g-mr-12">
                 <span v-if="message.is_new" class="d-inline-block g-pos-rel">
                   <span class="u-badge-v2--xs u-badge--top-left g-bg-red g-mt-7 g-ml-7"></span>
-                  <img class="rounded-circle g-width-36 g-height-36 g-brd-around g-brd-gray-light-v4 g-pa-2" v-bind:src="message.sender.avatar" v-bind:alt="message.sender.name || message.sender.username">
+                  <img class="rounded-circle g-width-36 g-height-36 g-brd-around g-brd-gray-light-v4 g-pa-2" :src="message.sender.avatar" :alt="message.sender.name || message.sender.username">
                 </span>
-                <img v-else class="rounded-circle g-width-36 g-height-36 g-brd-around g-brd-gray-light-v4 g-pa-2" v-bind:src="message.sender.avatar" v-bind:alt="message.sender.name || message.sender.username">
+                <img v-else class="rounded-circle g-width-36 g-height-36 g-brd-around g-brd-gray-light-v4 g-pa-2" :src="message.sender.avatar" :alt="message.sender.name || message.sender.username">
               </router-link>
               <!-- End Chat. Message Area. Message. Avatar. -->
 
@@ -90,12 +90,12 @@
               <!-- End Chat. Message Area. Message. Body. -->
 
               <!-- Chat. Message Area. Message. Avatar. -->
-              <router-link v-bind:to="{ path: `/user/${message.sender.id}` }" class="d-flex align-self-end g-ml-12">
+              <router-link :to="{ path: `/user/${message.sender.id}` }" class="d-flex align-self-end g-ml-12">
                 <span v-if="message.is_new" class="d-inline-block g-pos-rel">
                   <span class="u-badge-v2--xs u-badge--top-left g-bg-red g-mt-7 g-ml-7"></span>
-                  <img class="rounded-circle g-width-36 g-height-36 g-brd-around g-brd-gray-light-v4 g-pa-2" v-bind:src="message.sender.avatar" v-bind:alt="message.sender.name || message.sender.username">
+                  <img class="rounded-circle g-width-36 g-height-36 g-brd-around g-brd-gray-light-v4 g-pa-2" :src="message.sender.avatar" :alt="message.sender.name || message.sender.username">
                 </span>
-                <img v-else class="rounded-circle g-width-36 g-height-36 g-brd-around g-brd-gray-light-v4 g-pa-2" v-bind:src="message.sender.avatar" v-bind:alt="message.sender.name || message.sender.username">
+                <img v-else class="rounded-circle g-width-36 g-height-36 g-brd-around g-brd-gray-light-v4 g-pa-2" :src="message.sender.avatar" :alt="message.sender.name || message.sender.username">
               </router-link>
               <!-- End Chat. Message Area. Message. Avatar. -->
             </div>
@@ -120,10 +120,10 @@
   <div v-if="messages">
     <pagination
 
-          v-bind:cur-page="page"
-        v-bind:per-page="per_page"
-        v-bind:total-pages="page_total"
-        v-bind:from="form">
+          :cur-page="page"
+        :per-page="per_page"
+        :total-pages="page_total"
+        :from="form">
 
     </pagination>
   </div>
@@ -146,7 +146,7 @@
 import store from '../../../store'
 // 导入 vue-markdown 组件解析 markdown 原文为　HTML
 import VueMarkdown from 'vue-markdown'
-import Pagination from '../../Base/Pagination_message'
+import Pagination from '../../../components/PaginationMessage'
 
 export default {
   name: 'History',  //this is the name of the component

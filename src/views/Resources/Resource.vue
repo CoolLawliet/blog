@@ -8,13 +8,16 @@
           <div v-if="user" class="text-center g-pos-rel g-mb-30">
             <div class="g-width-100 g-height-100 mx-auto mb-3">
 
-              <img class="img-fluid rounded-circle g-brd-around g-brd-gray-light-v4 g-pa-2" v-bind:src="user.avatar" v-bind:alt="user.name || user.username">
+              <img class="img-fluid rounded-circle g-brd-around g-brd-gray-light-v4 g-pa-2"
+                   :src="user.avatar"
+                   :alt="user.name || user.username"
+              >
 
             </div>
 
             <span class="d-block g-font-weight-500">{{ user.name || user.username }}</span>
 
-            <router-link v-bind:to="{ path: `/user/${sharedState.user_id}` }">
+            <router-link :to="{ path: `/user/${sharedState.user_id}` }">
               <span class="u-icon-v3 u-icon-size--xs g-color-white--hover g-bg-primary--hover rounded-circle g-pos-abs g-top-0 g-right-15 g-cursor-pointer" title="Go To Your Profile"
                     data-toggle="tooltip"
                     data-placement="top">
@@ -29,13 +32,13 @@
           <!-- 菜单列表 -->
           <ul class="list-unstyled mb-0">
             <li class="g-pb-3">
-              <router-link v-bind:to="{ name: 'PostsResource' }" v-bind:active-class="'active g-color-primary--active g-bg-gray-light-v5--active'" class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3">
+              <router-link :to="{ name: 'PostsResource' }" :active-class="'active g-color-primary--active g-bg-gray-light-v5--active'" class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3">
                 <span class="u-icon-v1 g-color-gray-dark-v5 mr-2"><i class="icon-education-008 u-line-icon-pro"></i></span>
                 我关注的文章
               </router-link>
             </li>
             <li class="g-py-3">
-              <router-link v-bind:to="{ name: 'CommentsResource' }" v-bind:active-class="'active g-color-primary--active g-bg-gray-light-v5--active'" class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3">
+              <router-link :to="{ name: 'CommentsResource' }" :active-class="'active g-color-primary--active g-bg-gray-light-v5--active'" class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3">
             <span class="u-icon-v1 g-color-gray-dark-v5 mr-2"><i class="icon-finance-206 u-line-icon-pro"></i></span>
 
                 评论
@@ -43,7 +46,7 @@
             </li>
 
              <li class="g-py-3">
-              <router-link v-bind:to="{ name: 'MessagesIndexResource' }" v-bind:active-class="'active g-color-primary--active g-bg-gray-light-v5--active'" class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3">
+              <router-link :to="{ name: 'MessagesIndexResource' }" :active-class="'active g-color-primary--active g-bg-gray-light-v5--active'" class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3">
                 <span class="u-icon-v1 g-color-gray-dark-v5 mr-2"><i class="icon-communication-154 u-line-icon-pro"></i></span>
                 私信
               </router-link>
@@ -51,7 +54,7 @@
 
 
                <li class="g-pb-3">
-              <router-link v-bind:to="{ name: 'LikedPostsResource' }" v-bind:active-class="'active g-color-primary--active g-bg-gray-light-v5--active'" class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3">
+              <router-link :to="{ name: 'LikedPostsResource' }" :active-class="'active g-color-primary--active g-bg-gray-light-v5--active'" class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3">
                 <span class="u-icon-v1 g-color-gray-dark-v5 mr-2"><i class="icon-christmas-056 u-line-icon-pro"></i></span>
                 喜欢的文章
               </router-link>
@@ -87,7 +90,7 @@ export default {
   },
   methods: {
     getUser (id) {
-      const path = `/api/users/${id}/`
+      const path = `/api/users/${id}/`;
       this.$axios.get(path)
         .then((response) => {
           // handle success
@@ -100,8 +103,8 @@ export default {
     }
   },
   created () {
-    const user_id = this.sharedState.user_id
-    this.getUser(user_id)
+    const user_id = this.sharedState.user_id;
+    this.getUser(user_id);
     // tooltip
     $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip();

@@ -23,16 +23,16 @@
             <i class="icon-options-vertical g-pos-rel g-top-1"></i>
           </span>
           <div class="dropdown-menu dropdown-menu-right rounded-0 g-mt-10">
-           <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 5 }}" class="dropdown-item g-px-10">
+           <router-link :to="{ path: $route.path, query: { page: 1, per_page: 5 }}" class="dropdown-item g-px-10">
                   <i class="icon-layers g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 5 条顶层评论
                 </router-link>
-                <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 10 }}" class="dropdown-item g-px-10">
+                <router-link :to="{ path: $route.path, query: { page: 1, per_page: 10 }}" class="dropdown-item g-px-10">
                   <i class="icon-wallet g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 10 条顶层评论
                 </router-link>
 
                 <div class="dropdown-divider"></div>
 
-                <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 20 }}" class="dropdown-item g-px-10">
+                <router-link :to="{ path: $route.path, query: { page: 1, per_page: 20 }}" class="dropdown-item g-px-10">
                   <i class="icon-fire g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 20 条顶层评论
                 </router-link>
 
@@ -44,28 +44,28 @@
       <!-- Panel Body -->
       <div v-if="comments" class="card-block g-pa-0" >
 
-        <div v-bind:id="'c' + comment.id" class="comment-item media g-brd-around g-brd-gray-light-v4 g-pa-30 g-mb-20"
-          v-for="(comment, index) in comments_list" v-bind:key="index">
-          <router-link v-bind:to="{ path: `/user/${comment.author.id}` }">
+        <div :id="'c' + comment.id" class="comment-item media g-brd-around g-brd-gray-light-v4 g-pa-30 g-mb-20"
+          v-for="(comment, index) in comments_list" :key="index">
+          <router-link :to="{ path: `/user/${comment.author.id}` }">
            <span v-if="!comment.mark_read" class="d-inline-block g-pos-rel">
               <span class="u-badge-v2--xs u-badge--top-left g-bg-red g-mt-7 g-ml-7"></span>
 
-           <img class="d-flex g-brd-around g-brd-gray-light-v3 g-pa-2 g-width-40 g-height-40 rounded-circle rounded mCS_img_loaded g-mt-3 g-mr-15" v-bind:src="comment.author.avatar" v-bind:alt="comment.author.name || comment.author.username">
+           <img class="d-flex g-brd-around g-brd-gray-light-v3 g-pa-2 g-width-40 g-height-40 rounded-circle rounded mCS_img_loaded g-mt-3 g-mr-15" :src="comment.author.avatar" :alt="comment.author.name || comment.author.username">
 
             </span>
-            <img v-else class="d-flex g-brd-around g-brd-gray-light-v3 g-pa-2 g-width-40 g-height-40 rounded-circle rounded mCS_img_loaded g-mt-3 g-mr-15" v-bind:src="comment.author.avatar" v-bind:alt="comment.author.name || comment.author.username">
+            <img v-else class="d-flex g-brd-around g-brd-gray-light-v3 g-pa-2 g-width-40 g-height-40 rounded-circle rounded mCS_img_loaded g-mt-3 g-mr-15" :src="comment.author.avatar" :alt="comment.author.name || comment.author.username">
 
           </router-link>
           <div class="media-body">
 <!--            TODO 【评论前段!comment.parent_id-->
              <div v-if="!comment.parent_id" class="g-mb-15">
-              <h5 class="h5 g-color-gray-dark-v1 mb-0"><router-link v-bind:to="{ path: `/user/${comment.author.id}` }" class="comment-author g-text-underline--none--hover">{{ comment.author.name || comment.author.username }}</router-link> <span class="h6">评论了你的文章<router-link v-bind:to="{ name: 'PostDetail', params: { id: comment.post.id } }" class="g-text-underline--none--hover">《{{ comment.post.title }}》</router-link></span></h5>
+              <h5 class="h5 g-color-gray-dark-v1 mb-0"><router-link :to="{ path: `/user/${comment.author.id}` }" class="comment-author g-text-underline--none--hover">{{ comment.author.name || comment.author.username }}</router-link> <span class="h6">评论了你的文章<router-link :to="{ name: 'PostDetail', params: { id: comment.post.id } }" class="g-text-underline--none--hover">《{{ comment.post.title }}》</router-link></span></h5>
               <span class="g-color-gray-dark-v4 g-font-size-12">{{ $moment(comment.timestamp).format('YYYY年MM月DD日 HH:mm:ss') }}</span>
             </div>
 
 
              <div v-else class="g-mb-15">
-              <h5 class="h5 g-color-gray-dark-v1 mb-0"><router-link v-bind:to="{ path: `/user/${comment.author.id}` }" class="comment-author g-text-underline--none--hover">{{ comment.author.name || comment.author.username }}</router-link> <span class="h6">在文章<router-link v-bind:to="{ name: 'PostDetail', params: { id: comment.post.id } }" class="g-text-underline--none--hover">《{{ comment.post.title }}》</router-link>中写了一条新评论</span></h5>
+              <h5 class="h5 g-color-gray-dark-v1 mb-0"><router-link :to="{ path: `/user/${comment.author.id}` }" class="comment-author g-text-underline--none--hover">{{ comment.author.name || comment.author.username }}</router-link> <span class="h6">在文章<router-link :to="{ name: 'PostDetail', params: { id: comment.post.id } }" class="g-text-underline--none--hover">《{{ comment.post.title }}》</router-link>中写了一条新评论</span></h5>
               <span class="g-color-gray-dark-v4 g-font-size-12">{{ $moment(comment.timestamp).format('YYYY年MM月DD日 HH:mm:ss') }}</span>
             </div>
 
@@ -82,13 +82,13 @@
 
             <ul class="list-inline d-sm-flex my-0">
               <li v-if="!comment.disabled" class="list-inline-item g-mr-20">
-                <a v-on:click="onClickReply(comment)" class="comment-reply-link u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="javascript:;">
+                <a @click="onClickReply(comment)" class="comment-reply-link u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="javascript:;">
                   <i class="icon-note g-pos-rel g-top-1 g-mr-3"></i>
                   回复
                 </a>
               </li>
               <li class="list-inline-item g-mr-20">
-                <router-link v-bind:to="{ path: `/post/${comment.post.id}#c${comment.id}` }" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="javascript:;">
+                <router-link :to="{ path: `/post/${comment.post.id}#c${comment.id}` }" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="javascript:;">
                   <i class="icon-action-redo g-pos-rel g-top-1 g-mr-3"></i>
                   查看对话
                 </router-link>
@@ -96,7 +96,7 @@
 
               <ul class="list-inline mb-0 ml-auto">
                 <li v-if="!comment.mark_read" class="list-inline-item ml-auto">
-                  <a v-on:click="onMarkRead(comment)" class="u-link-v5 g-color-red g-color-aqua--hover" href="javascript:;">
+                  <a @click="onMarkRead(comment)" class="u-link-v5 g-color-red g-color-aqua--hover" href="javascript:;">
                     <i class="icon-check g-pos-rel g-top-1 g-mr-3"></i>
                     标为已读
                   </a>
@@ -108,13 +108,13 @@
                   </span>
                 </li>
                 <li v-if="!comment.disabled" class="list-inline-item">
-                  <button v-on:click="onDisabledComment(comment)" class="btn btn-xs u-btn-outline-purple">屏蔽</button>
+                  <button @click="onDisabledComment(comment)" class="btn btn-xs u-btn-outline-purple">屏蔽</button>
                 </li>
                 <li v-if="comment.disabled" class="list-inline-item">
-                  <button v-on:click="onEnabledComment(comment)" class="btn btn-xs u-btn-outline-aqua">恢复</button>
+                  <button @click="onEnabledComment(comment)" class="btn btn-xs u-btn-outline-aqua">恢复</button>
                 </li>
                 <li class="list-inline-item">
-                  <button v-on:click="onDeleteComment(comment)" class="btn btn-xs u-btn-outline-red">删除</button>
+                  <button @click="onDeleteComment(comment)" class="btn btn-xs u-btn-outline-red">删除</button>
                 </li>
               </ul>
 
@@ -130,9 +130,9 @@
 
      <div v-if="comments">
       <pagination
-        v-bind:cur-page="page"
-        v-bind:per-page="per_page"
-        v-bind:total-pages="page_total">
+        :cur-page="page"
+        :per-page="per_page"
+        :total-pages="page_total">
       </pagination>
     </div>
 
@@ -144,7 +144,7 @@
 import store from '../../store'
 // 导入 vue-markdown 组件解析 markdown 原文为　HTML
 import VueMarkdown from 'vue-markdown'
-import Pagination from '../Base/Pagination'
+import Pagination from '../../components/Pagination'
 // bootstrap-markdown 编辑器依赖的 JS 文件，初始化编辑器在组件的 created() 方法中，同时它需要 JQuery 支持哦
 import '../../assets/bootstrap-markdown/js/bootstrap-markdown.js'
 import '../../assets/bootstrap-markdown/js/bootstrap-markdown.zh.js'

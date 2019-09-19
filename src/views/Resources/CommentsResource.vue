@@ -12,16 +12,16 @@
             <i class="icon-options-vertical g-pos-rel g-top-1"></i>
           </span>
           <div class="dropdown-menu dropdown-menu-right rounded-0 g-mt-10">
-            <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 5 }}" class="dropdown-item g-px-10">
+            <router-link :to="{ path: $route.path, query: { page: 1, per_page: 5 }}" class="dropdown-item g-px-10">
                   <i class="icon-layers g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 5 条顶层评论
                 </router-link>
-                <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 10 }}" class="dropdown-item g-px-10">
+                <router-link :to="{ path: $route.path, query: { page: 1, per_page: 10 }}" class="dropdown-item g-px-10">
                   <i class="icon-wallet g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 10 条顶层评论
                 </router-link>
 
                 <div class="dropdown-divider"></div>
 
-                <router-link v-bind:to="{ path: $route.path, query: { page: 1, per_page: 20 }}" class="dropdown-item g-px-10">
+                <router-link :to="{ path: $route.path, query: { page: 1, per_page: 20 }}" class="dropdown-item g-px-10">
                   <i class="icon-fire g-font-size-12 g-color-gray-dark-v5 g-mr-5"></i> 每页 20 条顶层评论
                 </router-link>
 
@@ -35,21 +35,21 @@
 
             <div v-if="comments_list" class="card-block g-pa-0" >
 
-        <div v-bind:id="'c' + comment.id" class="comment-item media g-brd-around g-brd-gray-light-v4 g-pa-30 g-mb-20"
-          v-for="(comment, index) in comments_list" v-bind:key="index">
+        <div :id="'c' + comment.id" class="comment-item media g-brd-around g-brd-gray-light-v4 g-pa-30 g-mb-20"
+          v-for="(comment, index) in comments_list" :key="index">
 
-          <router-link v-bind:to="{ path: `/user/${comment.author.id}` }">
-            <img class="d-flex g-brd-around g-brd-gray-light-v3 g-pa-2 g-width-40 g-height-40 rounded-circle rounded mCS_img_loaded g-mt-3 g-mr-15" v-bind:src="comment.author.avatar" v-bind:alt="comment.author.name || comment.author.username">
+          <router-link :to="{ path: `/user/${comment.author.id}` }">
+            <img class="d-flex g-brd-around g-brd-gray-light-v3 g-pa-2 g-width-40 g-height-40 rounded-circle rounded mCS_img_loaded g-mt-3 g-mr-15" :src="comment.author.avatar" :alt="comment.author.name || comment.author.username">
           </router-link>
 
           <div class="media-body">
 
             <div v-if="!comment.parent_id" class="g-mb-15">
-              <h5 class="h5 g-color-gray-dark-v1 mb-0"><router-link v-bind:to="{ path: `/user/${comment.author.id}` }" class="comment-author g-text-underline--none--hover">{{ comment.author.name || comment.author.username }}</router-link> <span class="h6"> 评论了文章<router-link v-bind:to="{ name: 'PostDetail', params: { id: comment.post.id } }" class="g-text-underline--none--hover">《{{ comment.post.title }}》</router-link></span></h5>
+              <h5 class="h5 g-color-gray-dark-v1 mb-0"><router-link :to="{ path: `/user/${comment.author.id}` }" class="comment-author g-text-underline--none--hover">{{ comment.author.name || comment.author.username }}</router-link> <span class="h6"> 评论了文章<router-link :to="{ name: 'PostDetail', params: { id: comment.post.id } }" class="g-text-underline--none--hover">《{{ comment.post.title }}》</router-link></span></h5>
               <span class="g-color-gray-dark-v4 g-font-size-12">{{ $moment(comment.timestamp).format('YYYY年MM月DD日 HH:mm:ss') }}</span>
             </div>
             <div v-else class="g-mb-15">
-              <h5 class="h5 g-color-gray-dark-v1 mb-0"><router-link v-bind:to="{ path: `/user/${comment.author.id}` }" class="comment-author g-text-underline--none--hover">{{ comment.author.name || comment.author.username }}</router-link> <span class="h6"> 在文章<router-link v-bind:to="{ name: 'PostDetail', params: { id: comment.post.id } }" class="g-text-underline--none--hover">《{{ comment.post.title }}》</router-link>中写了一条新评论</span></h5>
+              <h5 class="h5 g-color-gray-dark-v1 mb-0"><router-link :to="{ path: `/user/${comment.author.id}` }" class="comment-author g-text-underline--none--hover">{{ comment.author.name || comment.author.username }}</router-link> <span class="h6"> 在文章<router-link :to="{ name: 'PostDetail', params: { id: comment.post.id } }" class="g-text-underline--none--hover">《{{ comment.post.title }}》</router-link>中写了一条新评论</span></h5>
               <span class="g-color-gray-dark-v4 g-font-size-12">{{ $moment(comment.timestamp).format('YYYY年MM月DD日 HH:mm:ss') }}</span>
             </div>
 
@@ -66,20 +66,20 @@
 
             <ul class="list-inline d-sm-flex my-0">
               <li class="list-inline-item g-mr-20">
-                <router-link v-bind:to="{ path: `/post/${comment.post.id}#c${comment.id}` }" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="javascript:;">
+                <router-link :to="{ path: `/post/${comment.post.id}#c${comment.id}` }" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="javascript:;">
                   <i class="icon-action-redo g-pos-rel g-top-1 g-mr-3"></i>
                   查看对话
                 </router-link>
               </li>
               <ul class="list-inline mb-0 ml-auto">
                 <li v-if="!comment.disabled" class="list-inline-item">
-                  <button v-on:click="onDisabledComment(comment)" class="btn btn-xs u-btn-outline-purple">屏蔽</button>
+                  <button @click="onDisabledComment(comment)" class="btn btn-xs u-btn-outline-purple">屏蔽</button>
                 </li>
                 <li v-if="comment.disabled" class="list-inline-item">
-                  <button v-on:click="onEnabledComment(comment)" class="btn btn-xs u-btn-outline-aqua">恢复</button>
+                  <button @click="onEnabledComment(comment)" class="btn btn-xs u-btn-outline-aqua">恢复</button>
                 </li>
                 <li class="list-inline-item">
-                  <button v-on:click="onDeleteComment(comment)" class="btn btn-xs u-btn-outline-red">删除</button>
+                  <button @click="onDeleteComment(comment)" class="btn btn-xs u-btn-outline-red">删除</button>
                 </li>
               </ul>
             </ul>
@@ -96,9 +96,9 @@
     <!-- Pagination #04 -->
     <div v-if="comments">
       <pagination
-        v-bind:cur-page="page"
-        v-bind:per-page="per_page"
-        v-bind:total-pages="page_total">
+        :cur-page="page"
+        :per-page="per_page"
+        :total-pages="page_total">
       </pagination>
     </div>
     <!-- End Pagination #04 -->
@@ -109,7 +109,7 @@
 import store from '../../store'
 // 导入 vue-markdown 组件解析 markdown 原文为　HTML
 import VueMarkdown from 'vue-markdown'
-import Pagination from '../Base/Pagination'
+import Pagination from '../../components/Pagination'
 
 
 export default {
